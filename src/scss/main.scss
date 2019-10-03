@@ -2,15 +2,72 @@
 @import "_variables";
 
 
-html {
-  box-sizing: border-box;
+:root{
+  --background-color: #2a2a2a;
+  --record-colour: white;
+  --record-size: 12rem;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
-}
+// Set basic body properties
 
 body {
-  color: $yellow;
-  background: $violet;
+  //background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
+
+@keyframes rotate-record{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+#arm-top {
+  transform: translate(9.5px, 3px) rotate(-90deg); // set the default position of the recrod arm
+  transform-origin: -1px 11px; // set the transform point of our record arm to the correct place
+  transition: transform 500ms;
+}
+
+// Set size and position of the container
+.container {
+  max-width: 15rem;
+  max-height: calc(15rem * 1.166); // ratio based on the viewBox Size
+  width: 100%;
+  height: auto;
+}
+
+#record {
+  transform: rotate(0deg); // set the default transform value for the record
+  transform-origin: 24px 24px; // set the transform point to the center of the record
+  
+}
+
+#record-container {
+  transform: translate(7px, 0) rotate(0deg); // set the default transform values for the record container
+  transform-origin: 24px 24px; // set the transform point to the center of the record
+  transition: transform 500ms linear;
+}
+
+// Record animation styles
+
+#record-svg {
+  fill: #D0D0D0; // Set the colour of our SVG
+  &:hover, &:active, &:focus{
+    #arm-top{
+      transform: translate(9.5px, 3px) rotate(0deg);
+      transition: transform 1s;
+    }
+    #record{
+      animation: 400ms linear 1250ms infinite rotate-record;
+    }
+    #record-container{
+      transform: translate(7px, 0) rotate(360deg);
+      transition: transform 1s 500ms linear;
+    }
+  }
+}
+
+
+
